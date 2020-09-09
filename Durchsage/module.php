@@ -1,12 +1,13 @@
 <?php
 
 declare(strict_types=1);
-declare(DS_SONOS=0);
-declare(DS_MEDIA=1);
+
 include_once __DIR__ . '/libs/WebHookModule.php';
 
 class Durchsage extends WebHookModule
 {
+    const DS_SONOS = 0;
+    const DS_MEDIA = 1;
     public function __construct($InstanceID)
     {
         parent::__construct($InstanceID, 'durchsage-sonos');
@@ -71,12 +72,12 @@ class Durchsage extends WebHookModule
         //Providing audio data to the WebHook
         $this->SetBuffer('AudioData', base64_decode(TTSAWSPOLLY_GenerateData($this->ReadPropertyInteger('PollyID'), $Text)));
         switch ($this->ReadPropertyInteger('OutputType')) {
-            case DS_SONOS:
+            case self::DS_SONOS:
                 //Setting filename to allow the Sonos module to fetch the mime type
                 SNS_PlayFiles($this->ReadPropertyInteger('OutputInstance'), json_encode([sprintf('http://%s:3777/hook/durchsage-sonos/Durchsage.mp3', $this->ReadPropertyString('SonosIP'))]), $this->ReadPropertyString('SonosVolume'));
             break;
 
-            case DS_MEDIA:
+            case self::DS_MEDIA:
                 //No volume reset
                 WAC_SetVolume($this->ReadPropertyInteger('OutputInstance'), $this->ReadPropertyInteger('MediaPlayerVolume'));
                 //Fading takes 500ms
@@ -91,11 +92,11 @@ class Durchsage extends WebHookModule
         $this->UpdateFormField('OutputInstance', 'value', 0);
         $this->UpdateFormField('OutputInstance', 'enabled', false);
         switch ($OutputType) {
-            case DS_SONOS:
+            case self::DS_SONOS:
                 $this->UpdateFormField('MediaPlayerVolume', 'enabled', false);
             break;
 
-            case DS_MEDIA:
+            case self::DS_MEDIA:
                 $this->UpdateFormField('SonosVolume', 'enabled', false);
                 $this->UpdateFormField('SonosIP', 'enabled', false);
             break;
@@ -128,7 +129,7 @@ class Durchsage extends WebHookModule
 
         ];
         switch ($this->ReadPropertyInteger('OutputType')) {
-            case DS_SONOS:
+            case self::DS_SONOS:
                 $ipOptions = [];
                 $networkInfo = Sys_GetNetworkInfo();
                 for ($i = 0; $i < count($networkInfo); $i++) {
@@ -159,7 +160,7 @@ class Durchsage extends WebHookModule
                 ];
             break;
 
-            case DS_MEDIA:
+            case self::DS_MEDIA:
 
                 $form['elements'][2] = [
                     'type'    => 'Select',
