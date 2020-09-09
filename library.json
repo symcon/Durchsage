@@ -1,0 +1,12 @@
+{
+    "id": "{00D4E950-DA68-B784-B62D-E22193C711D8}",
+    "name": "Durchsage",
+    "author": "Symcon GmbH",
+    "url": "https://symcon.de",
+    "compatibility": {
+        "version": "5.4"
+    },
+    "version": "1.0",
+    "build": 0,
+    "date": 0
+}

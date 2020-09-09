@@ -1,0 +1,21 @@
+{
+    "translations": {
+        "de": {
+            "Text-to-Speech Instance (Polly)": "Text-to-Speech Instanz (Polly)",
+            "Output Device": "Ausgabegerät",
+            "None": "Kein(e)",
+            "Translation 2": "Übersetzung 2",
+            "Sonos IP": "Sonos IP",
+            "Sonos Player" : "Sonos Player",
+            "Media Player": "MediaPlayer",
+            "Volume": "Lautstärke",
+            "Play": "Abspielen",
+            "Selected Text-to-Speech Instance doen't exist": "Ausgewählte Text-to-Speech Instanz existiert nicht",
+            "Selected Text-to-Speech Instance is no AwS Polly Instance": "Ausgewählte Ausgewählte Text-to-Speech Instanz ist keine AWS Polly Instanz",
+            "Selected Output Instance doesn't exist": "Ausgewählte Ausgabeinstanz existiert nicht",
+            "Only mp3 is supported": "Es wird nur mp3 unterstützt",
+            "Unknown ident in RequestAction": "Unbekannter Ident in RequestAction",
+            "Unknown output type": "Unbekannter Ausgabetyp"
+        }
+    }
+}

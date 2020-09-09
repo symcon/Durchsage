@@ -1,0 +1,12 @@
+{
+    "id": "{26F752F0-4D4E-A52C-DB3C-35DFEA979F44}",
+    "name": "Durchsage",
+    "type": 3,
+    "vendor": "",
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "DS",
+    "url": "https://symcon.de"
+}
