@@ -1,8 +1,8 @@
 <?php
 
 declare(strict_types=1);
-declare(DS_SONOS = 0);
-declare(DS_MEDIA = 1);
+declare(DS_SONOS=0);
+declare(DS_MEDIA=1);
 include_once __DIR__ . '/libs/WebHookModule.php';
 
 class Durchsage extends WebHookModule
