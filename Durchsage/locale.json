@@ -15,7 +15,8 @@
             "Selected Output Instance doesn't exist": "Ausgewählte Ausgabeinstanz existiert nicht",
             "Only mp3 is supported": "Es wird nur mp3 unterstützt",
             "Unknown ident in RequestAction": "Unbekannter Ident in RequestAction",
-            "Unknown output type": "Unbekannter Ausgabetyp"
+            "Unknown output type": "Unbekannter Ausgabetyp",
+            "Sonos Module not installed": "Sonos Modul nicht installiert"
         }
     }
 }
