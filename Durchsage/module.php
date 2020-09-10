@@ -41,7 +41,7 @@ class Durchsage extends WebHookModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-        $this->setIntanceStatus();
+        $this->setInstanceStatus();
     }
 
     public function RequestAction($Ident, $Value)
@@ -60,7 +60,7 @@ class Durchsage extends WebHookModule
 
     public function Play(string $Text)
     {
-        $this->setIntanceStatus();
+        $this->setInstanceStatus();
         if ($this->GetStatus() != 102) {
             return;
         }
@@ -204,7 +204,7 @@ class Durchsage extends WebHookModule
         echo $this->GetBuffer('AudioData');
     }
 
-    private function setIntanceStatus()
+    private function setInstanceStatus()
     {
         $polly = $this->ReadPropertyInteger('PollyID');
         $newStatus = 102;
