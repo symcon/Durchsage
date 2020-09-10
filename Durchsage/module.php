@@ -61,11 +61,20 @@ class Durchsage extends WebHookModule
     public function Play(string $Text)
     {
         $this->setInstanceStatus();
-        if ($this->GetStatus() != 102) {
-            if ($this->GetStatus() == 204) {
-                echo $this->Translate('The Output Format of AWS Polly needs to be mp3');
+        $status = $this->GetStatus();
+        if ($status != 102) {
+            switch ($status) {
+                case 204:
+                    echo $this->Translate('The Output Format of AWS Polly needs to be mp3');
+                    break;
+
+                case 205:
+                    echo $this->Translate('The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 , 22050, 24000, 32000, 44100, 48000');
+                    break;
+
+                default:
+                    return;
             }
-            return;
         }
 
         //Providing audio data to the WebHook
@@ -172,7 +181,7 @@ class Durchsage extends WebHookModule
         $form['elements'][3] = [
             'type'    => 'Select',
             'name'    => 'OutputInstance',
-            'caption' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ?  'Media Player' : 'Sonos Player',
+            'caption' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? 'Media Player' : 'Sonos Player',
             'options' => $this->getInstanceOptions($this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
         ];
         $form['elements'][4] = [
@@ -205,45 +214,53 @@ class Durchsage extends WebHookModule
 
     private function setInstanceStatus()
     {
-        $polly = $this->ReadPropertyInteger('PollyID');
-        $newStatus = 102;
-        if ($polly != 0) {
-            if (IPS_InstanceExists($polly)) {
-                if (IPS_GetInstance($polly)['ModuleInfo']['ModuleID'] != '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}') {
-                    $newStatus = 201;
-                }
-            } else {
-                $newStatus = 200;
+        $getInstanceStatus = function ()
+        {
+            $polly = $this->ReadPropertyInteger('PollyID');
+            if ($polly === 0) {
+                return 104;
             }
-        } else {
-            $newStatus = 104;
-        }
-        $output = $this->ReadPropertyInteger('OutputInstance');
-        if ($output != 0) {
+            if (!IPS_InstanceExists($polly)) {
+                return 200;
+            }
+            if (IPS_GetInstance($polly)['ModuleInfo']['ModuleID'] != '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}') {
+                return 201;
+            }
+            if (IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'OutputFormat') != 'mp3') {
+                return 204;
+            }
+            if ($this->ReadPropertyInteger('OutputType') === self::DS_SONOS) {
+                //Sonos only supports following sample rates: https://support.sonos.com/s/article/79?language=de
+                $sampleRateAllowList = ['', '16000', '22050', '24000', '32000', '44100', '48000'];
+                if (!in_array(IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'SampleRate'), $sampleRateAllowList)) {
+                    return 205;
+                }
+            }
+            $output = $this->ReadPropertyInteger('OutputInstance');
+            if ($output != 0) {
+                return 104;
+            }
             if (!IPS_InstanceExists(($output))) {
-                $newStatus = 202;
-            } else {
-                switch ($this->ReadPropertyInteger('OutputType')) {
-                    case self::DS_SONOS:
-                        if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}') {
-                            $newStatus = 203;
-                        }
+                return 202;
+            }
+            switch ($this->ReadPropertyInteger('OutputType')) {
+                case self::DS_SONOS:
+                    if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}') {
+                        return 203;
+                    }
                     break;
 
-                    case self::DS_MEDIA:
-                        if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{2999EBBB-5D36-407E-A52B-E9142A45F19C}') {
-                            $newStatus = 203;
-                        }
+                case self::DS_MEDIA:
+                    if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{2999EBBB-5D36-407E-A52B-E9142A45F19C}') {
+                        return 203;
+                    }
                     break;
-                }
             }
-        } else {
-            $newStatus = 104;
-        }
-        if (IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'OutputFormat') != 'mp3') {
-            $newStatus = 204;
-        }
-        $this->SetStatus($newStatus);
+
+            return 102;
+        };
+
+        $this->SetStatus($getInstanceStatus());
     }
 
     private function getInstanceOptions($guid)

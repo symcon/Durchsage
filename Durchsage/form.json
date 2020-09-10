@@ -20,6 +20,9 @@
         },
         {
             "code": 204, "caption": "The Output Format of AWS Polly needs to be mp3", "icon": "error"
+        },
+        {
+            "code": 205, "caption": "The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 , 22050, 24000, 32000, 44100, 48000", "icon": "error"
         }
     ]
 }
