@@ -167,14 +167,14 @@ class Durchsage extends WebHookModule
             'name'    => 'SymconIP',
             'caption' => $this->Translate('Symcon IP'),
             'options' => $ipOptions,
-            'visible' => !$this->ReadPropertyInteger('OutputType')
+            'visible' => $this->ReadPropertyInteger('OutputType') === self::DS_SONOS
         ];
 
         $form['elements'][3] = [
             'type'    => 'Select',
             'name'    => 'OutputInstance',
             'caption' => $this->ReadPropertyInteger('OutputType') ? 'Media Player' : 'Sonos Player',
-            'options' => $this->getInstanceOptions($this->ReadPropertyInteger('OutputType') ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
+            'options' => $this->getInstanceOptions($this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
         ];
         $form['elements'][4] = [
             'type'     => 'ValidationTextBox',
@@ -182,7 +182,7 @@ class Durchsage extends WebHookModule
             'caption'  => 'Volume',
             'validate' => '^[-+]?[0-9][0-9]?$|^100$',
             'value'    => '0',
-            'visible'  => !$this->ReadPropertyInteger('OutputType')
+            'visible'  => $this->ReadPropertyInteger('OutputType') === self::DS_SONOS
         ];
 
         $form['elements'][5] = [
@@ -191,7 +191,7 @@ class Durchsage extends WebHookModule
             'caption' => 'Volume',
             'minimum' => 0,
             'maximum' => 100,
-            'visible' => $this->ReadPropertyInteger('OutputType'),
+            'visible' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA
         ];
 
         return json_encode($form);
