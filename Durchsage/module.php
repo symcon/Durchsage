@@ -235,7 +235,7 @@ class Durchsage extends WebHookModule
         $instances = IPS_GetInstanceListByModuleID($guid);
         $caption = $this->Translate('None');
         if ($guid == '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}' && !(IPS_LibraryExists('{B9D841BF-12F4-4BC6-B89C-0F6CB538865B}'))) {
-        $caption = $this->Translate('Sonos Module not installed');
+            $caption = $this->Translate('Sonos Module not installed');
         }
         $options[] = [
             'value'   => 0,
