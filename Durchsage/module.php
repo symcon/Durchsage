@@ -51,7 +51,7 @@ class Durchsage extends WebHookModule
         switch ($Ident) {
             case 'TTSText':
                 $this->Play($Value);
-            break;
+                break;
 
             default:
                 $this->LogMessage(KL_WARNING, $this->Translate('Unknown ident in RequestAction'));
@@ -74,7 +74,7 @@ class Durchsage extends WebHookModule
             case self::DS_SONOS:
                 //Setting filename to allow the Sonos module to fetch the mime type
                 SNS_PlayFiles($this->ReadPropertyInteger('OutputInstance'), json_encode([sprintf('http://%s:3777/hook/durchsage/%s/Durchsage.mp3', $this->ReadPropertyString('SymconIP'), $this->InstanceID)]), $this->ReadPropertyString('SonosVolume'));
-            break;
+                break;
 
             case self::DS_MEDIA:
                 //No volume reset
@@ -82,7 +82,7 @@ class Durchsage extends WebHookModule
                 //Fading takes 500ms
                 IPS_Sleep(500);
                 WAC_PlayFile($this->ReadPropertyInteger('OutputInstance'), 'http://127.0.0.1:3777/hook/durchsage/' . $this->InstanceID);
-            break;
+                break;
         }
     }
 
@@ -101,7 +101,7 @@ class Durchsage extends WebHookModule
                 //Show Sonos
                 $this->UpdateFormField('SonosVolume', 'visible', true);
                 $this->UpdateFormField('SymconIP', 'visible', true);
-            break;
+                break;
 
             case self::DS_MEDIA:
                 //Hide Sonos elements
@@ -115,7 +115,7 @@ class Durchsage extends WebHookModule
 
                 //Show Media Player
                 $this->UpdateFormField('MediaPlayerVolume', 'visible', true);
-            break;
+                break;
 
             default:
                 $this->LogMessage(KL_ERROR, $this->Translate('Unknown output type'));
