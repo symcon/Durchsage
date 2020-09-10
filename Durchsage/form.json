@@ -7,13 +7,16 @@
     ],
     "status": [
         {
-            "code" : 200, "caption": "Selected Text-to-Speech Instance doen't exist", "icon": "error"
+            "code": 200, "caption": "Selected Text-to-Speech Instance doen't exist", "icon": "error"
         },
         {
-            "code" : 201, "caption": "Selected Text-to-Speech Instance is no AwS Polly Instance", "icon": "error"
+            "code": 201, "caption": "Selected Text-to-Speech Instance is no AwS Polly Instance", "icon": "error"
         },
         {
-            "code" : 202, "caption": "Selected Output Instance doesn't exist", "icon": "error"
+            "code": 202, "caption": "Selected Output Instance doesn't exist", "icon": "error"
+        },
+        {
+            "code": 203, "caption": "Selected Output Instance doesn't correspond with the selected Output Type", "icon": "error"
         }
     ]
 }

@@ -16,7 +16,8 @@
             "Only mp3 is supported": "Es wird nur mp3 unterstützt",
             "Unknown ident in RequestAction": "Unbekannter Ident in RequestAction",
             "Unknown output type": "Unbekannter Ausgabetyp",
-            "Sonos Module not installed": "Sonos Modul nicht installiert"
+            "Sonos Module not installed": "Sonos Modul nicht installiert",
+            "Selected Output Instance doesn't correspond with the selected Output Type": "Ausgewählte Ausgabeinstanz stimmt nicht mit dem ausgewählten Ausgabetyp überein"
         }
     }
 }
