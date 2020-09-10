@@ -1,12 +1,5 @@
 {
-    "elements": [
-        {
-            "type": "SelectInstance",
-            "name": "PollyID",
-            "caption": "Text-to-Speech Instance (Polly)",
-            "validModules": ["{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}"]
-        }
-    ],
+    "elements": [],
     "actions": [
         {
             "type": "TestCenter"

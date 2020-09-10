@@ -22,7 +22,7 @@ class Durchsage extends WebHookModule
         $this->RegisterPropertyInteger('PollyID', 0);
         $this->RegisterPropertyInteger('OutputType', 0);
         $this->RegisterPropertyInteger('OutputInstance', 0);
-        $this->RegisterPropertyString('SonosIP', Sys_GetNetworkInfo()[0]['IP']);
+        $this->RegisterPropertyString('SymconIP', Sys_GetNetworkInfo()[0]['IP']);
         $this->RegisterPropertyString('SonosVolume', '0');
         $this->RegisterPropertyInteger('MediaPlayerVolume', 50);
 
@@ -65,7 +65,7 @@ class Durchsage extends WebHookModule
             return;
         }
         if (IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'OutputFormat') != 'mp3') {
-            $this->LogMessage(KL_ERROR, $this->Translate('Only mp3 is supported'));
+            echo $this->Translate('Only mp3 is supported');
             return;
         }
 
@@ -74,7 +74,7 @@ class Durchsage extends WebHookModule
         switch ($this->ReadPropertyInteger('OutputType')) {
             case self::DS_SONOS:
                 //Setting filename to allow the Sonos module to fetch the mime type
-                SNS_PlayFiles($this->ReadPropertyInteger('OutputInstance'), json_encode([sprintf('http://%s:3777/hook/durchsage-sonos/Durchsage.mp3', $this->ReadPropertyString('SonosIP'))]), $this->ReadPropertyString('SonosVolume'));
+                SNS_PlayFiles($this->ReadPropertyInteger('OutputInstance'), json_encode([sprintf('http://%s:3777/hook/durchsage-sonos/Durchsage.mp3', $this->ReadPropertyString('SymconIP'))]), $this->ReadPropertyString('SonosVolume'));
             break;
 
             case self::DS_MEDIA:
@@ -89,16 +89,33 @@ class Durchsage extends WebHookModule
     public function UpdateOutput($OutputType)
     {
         //Disabling elements temporarily in order to prevent errors
-        $this->UpdateFormField('OutputInstance', 'value', 0);
-        $this->UpdateFormField('OutputInstance', 'enabled', false);
         switch ($OutputType) {
             case self::DS_SONOS:
-                $this->UpdateFormField('MediaPlayerVolume', 'enabled', false);
+                //Hide Media Player elements
+                $this->UpdateFormField('MediaPlayerVolume', 'visible', false);
+
+                //Update output select
+                $this->UpdateFormField('OutputInstance', 'caption', $this->Translate('Sonos Player'));
+                $this->UpdateFormField('OutputInstance', 'options', json_encode($this->getInstanceOptions('{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')));
+                $this->UpdateFormField('OutputInstance', 'value', 0);
+
+                //Show Sonos
+                $this->UpdateFormField('SonosVolume', 'visible', true);
+                $this->UpdateFormField('SymconIP', 'visible', true);
             break;
 
             case self::DS_MEDIA:
-                $this->UpdateFormField('SonosVolume', 'enabled', false);
-                $this->UpdateFormField('SonosIP', 'enabled', false);
+                //Hide Sonos elements
+                $this->UpdateFormField('SonosVolume', 'visible', false);
+                $this->UpdateFormField('SymconIP', 'visible', false);
+
+                //Update output select
+                $this->UpdateFormField('OutputInstance', 'caption', $this->Translate('Media Player'));
+                $this->UpdateFormField('OutputInstance', 'options', json_encode($this->getInstanceOptions('{2999EBBB-5D36-407E-A52B-E9142A45F19C}')));
+                $this->UpdateFormField('OutputInstance', 'value', 0);
+
+                //Show Media Player
+                $this->UpdateFormField('MediaPlayerVolume', 'visible', true);
             break;
 
             default:
@@ -109,6 +126,13 @@ class Durchsage extends WebHookModule
     public function GetConfigurationForm()
     {
         $form = json_decode(file_get_contents(__DIR__ . '/form.json'), true);
+
+        $form['elements'][0] = [
+            'type'    => 'Select',
+            'name'    => 'PollyID',
+            'caption' => 'Text-to-Speech Instance (Polly)',
+            'options' => $this->getInstanceOptions('{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}')
+        ];
 
         $outputOptions[] = [
             'value'   => 0,
@@ -128,56 +152,47 @@ class Durchsage extends WebHookModule
             'onChange' => 'DS_UpdateOutput($id, $OutputType);'
 
         ];
-        switch ($this->ReadPropertyInteger('OutputType')) {
-            case self::DS_SONOS:
-                $ipOptions = [];
-                $networkInfo = Sys_GetNetworkInfo();
-                for ($i = 0; $i < count($networkInfo); $i++) {
-                    $ipOptions[] = [
-                        'caption' => $networkInfo[$i]['IP'],
-                        'value'   => $networkInfo[$i]['IP']
-                    ];
-                }
-                $form['elements'][2] = [
-                    'type'    => 'Select',
-                    'name'    => 'SonosIP',
-                    'caption' => $this->Translate('Sonos IP'),
-                    'options' => $ipOptions
-                ];
 
-                $form['elements'][3] = [
-                    'type'    => 'Select',
-                    'name'    => 'OutputInstance',
-                    'caption' => 'Sonos Player',
-                    'options' => $this->getInstanceOptions('{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
-                ];
-                $form['elements'][4] = [
-                    'type'     => 'ValidationTextBox',
-                    'name'     => 'SonosVolume',
-                    'caption'  => 'Volume',
-                    'validate' => '^[-+]?[0-9][0-9]?$|^100$',
-                    'value'    => '0'
-                ];
-            break;
-
-            case self::DS_MEDIA:
-
-                $form['elements'][2] = [
-                    'type'    => 'Select',
-                    'name'    => 'OutputInstance',
-                    'caption' => 'Media Player',
-                    'options' => $this->getInstanceOptions('{2999EBBB-5D36-407E-A52B-E9142A45F19C}')
-                ];
-                $form['elements'][3] = [
-                    'type'    => 'NumberSpinner',
-                    'name'    => 'MediaPlayerVolume',
-                    'caption' => 'Volume',
-                    'minimum' => 0,
-                    'maximum' => 100
-                ];
-
-            break;
+        $ipOptions = [];
+        $networkInfo = Sys_GetNetworkInfo();
+        for ($i = 0; $i < count($networkInfo); $i++) {
+            $ipOptions[] = [
+                'caption' => $networkInfo[$i]['IP'],
+                'value'   => $networkInfo[$i]['IP']
+            ];
         }
+
+        $form['elements'][2] = [
+            'type'    => 'Select',
+            'name'    => 'SymconIP',
+            'caption' => $this->Translate('Symcon IP'),
+            'options' => $ipOptions,
+            'visible' => !$this->ReadPropertyInteger('OutputType')
+        ];
+
+        $form['elements'][3] = [
+            'type'    => 'Select',
+            'name'    => 'OutputInstance',
+            'caption' => $this->ReadPropertyInteger('OutputType') ? 'Media Player' : 'Sonos Player',
+            'options' => $this->getInstanceOptions($this->ReadPropertyInteger('OutputType') ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
+        ];
+        $form['elements'][4] = [
+            'type'     => 'ValidationTextBox',
+            'name'     => 'SonosVolume',
+            'caption'  => 'Volume',
+            'validate' => '^[-+]?[0-9][0-9]?$|^100$',
+            'value'    => '0',
+            'visible'  => !$this->ReadPropertyInteger('OutputType')
+        ];
+
+        $form['elements'][5] = [
+            'type'    => 'NumberSpinner',
+            'name'    => 'MediaPlayerVolume',
+            'caption' => 'Volume',
+            'minimum' => 0,
+            'maximum' => 100,
+            'visible' => $this->ReadPropertyInteger('OutputType'),
+        ];
 
         return json_encode($form);
     }
