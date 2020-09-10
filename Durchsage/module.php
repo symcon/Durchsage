@@ -20,7 +20,7 @@ class Durchsage extends WebHookModule
 
         //Properties
         $this->RegisterPropertyInteger('PollyID', 0);
-        $this->RegisterPropertyInteger('OutputType', 0);
+        $this->RegisterPropertyInteger('OutputType', self::DS_SONOS);
         $this->RegisterPropertyInteger('OutputInstance', 0);
         $this->RegisterPropertyString('SymconIP', Sys_GetNetworkInfo()[0]['IP']);
         $this->RegisterPropertyString('SonosVolume', '0');
@@ -172,7 +172,7 @@ class Durchsage extends WebHookModule
         $form['elements'][3] = [
             'type'    => 'Select',
             'name'    => 'OutputInstance',
-            'caption' => $this->ReadPropertyInteger('OutputType') ? 'Media Player' : 'Sonos Player',
+            'caption' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ?  'Media Player' : 'Sonos Player',
             'options' => $this->getInstanceOptions($this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
         ];
         $form['elements'][4] = [
