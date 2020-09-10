@@ -37,7 +37,7 @@ Name                    | Beschreibung
 ----------------------- | ------------------
 Text-to-Speeach Instanz | AWS Polly Instanz, welche zum erstellen der Durchsage genutzt werden soll. Als Ausgabeformat muss mp3 ausgewählt sein.
 Ausgabegerät            | Typ der Ausgabeinstanz
-Sonos IP                | IP des Gerätes, auf dem IP-Symcon läuft
+Symcon IP               | IP des Gerätes, auf dem IP-Symcon läuft
 Sonos/Media Player      | Instanz, über welche die Durchsage widergegeben wird
 Lautstärke              | Sonos: Die Lautstärkenänderung der Durchsage (0 &rarr; keine Änderung , 50 &rarr; 50, +10 &rarr; um 10 lauter) <br>Media Player: die Lautstärke der Durchsage in Prozent (wird nicht zurückgesetzt)
 
