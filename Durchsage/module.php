@@ -237,7 +237,7 @@ class Durchsage extends WebHookModule
                 }
             }
             $output = $this->ReadPropertyInteger('OutputInstance');
-            if ($output != 0) {
+            if ($output === 0) {
                 return 104;
             }
             if (!IPS_InstanceExists(($output))) {
