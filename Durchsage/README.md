@@ -1,5 +1,5 @@
 # Durchsage
-Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten über Sonos oder unter Windows den Media Player wiedergeben.
+Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten über Sonos oder unter Windows den Media Player wiederzugeben.
 
 ### Inhaltsverzeichnis
 
@@ -13,7 +13,7 @@ Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten �
 
 ### 1. Funktionsumfang
 
-* Von AWS Polly erzeugte Audiodaten über ein Sonos Player oder den "Symcon" Media Player wiederzugeben
+* Von AWS Polly erzeugte Audiodaten über ein Sonos Player oder den "Symcon" Media Player wiedergeben
 * Lautstärke der Durchsage ist einstellbar
 * Durchsage bei Änderung der Text Variable. Alternativ über angebotene Funktion
 
@@ -37,7 +37,7 @@ Name                    | Beschreibung
 ----------------------- | ------------------
 Text-to-Speeach Instanz | AWS Polly Instanz, welche zum erstellen der Durchsage genutzt werden soll. Als Ausgabeformat muss mp3 ausgewählt sein.
 Ausgabegerät            | Typ der Ausgabeinstanz
-Symcon IP               | IP des Gerätes, auf dem IP-Symcon läuft
+Symcon IP               | Die IP-Addresse, unter welcher der Sonos Player IP-Symcon erreicht.
 Sonos/Media Player      | Instanz, über welche die Durchsage widergegeben wird
 Lautstärke              | Sonos: Die Lautstärkenänderung der Durchsage (0 &rarr; keine Änderung , 50 &rarr; 50, +10 &rarr; um 10 lauter) <br>Media Player: die Lautstärke der Durchsage in Prozent (wird nicht zurückgesetzt)
 
