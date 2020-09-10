@@ -226,13 +226,13 @@ class Durchsage extends WebHookModule
             } else {
                 switch ($this->ReadPropertyInteger('OutputType')) {
                     case self::DS_SONOS:
-                        if(IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}') {
+                        if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}') {
                             $newStatus = 203;
                         }
                     break;
 
                     case self::DS_MEDIA:
-                        if(IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{2999EBBB-5D36-407E-A52B-E9142A45F19C}') {
+                        if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{2999EBBB-5D36-407E-A52B-E9142A45F19C}') {
                             $newStatus = 203;
                         }
                     break;
