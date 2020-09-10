@@ -10,7 +10,7 @@ class Durchsage extends WebHookModule
     const DS_MEDIA = 1;
     public function __construct($InstanceID)
     {
-        parent::__construct($InstanceID, 'durchsage-sonos');
+        parent::__construct($InstanceID, 'durchsage/' . $InstanceID);
     }
 
     public function Create()
@@ -74,7 +74,7 @@ class Durchsage extends WebHookModule
         switch ($this->ReadPropertyInteger('OutputType')) {
             case self::DS_SONOS:
                 //Setting filename to allow the Sonos module to fetch the mime type
-                SNS_PlayFiles($this->ReadPropertyInteger('OutputInstance'), json_encode([sprintf('http://%s:3777/hook/durchsage-sonos/Durchsage.mp3', $this->ReadPropertyString('SymconIP'))]), $this->ReadPropertyString('SonosVolume'));
+                SNS_PlayFiles($this->ReadPropertyInteger('OutputInstance'), json_encode([sprintf('http://%s:3777/hook/durchsage/%s/Durchsage.mp3', $this->ReadPropertyString('SymconIP'), $this->InstanceID)]), $this->ReadPropertyString('SonosVolume'));
             break;
 
             case self::DS_MEDIA:
@@ -82,7 +82,7 @@ class Durchsage extends WebHookModule
                 WAC_SetVolume($this->ReadPropertyInteger('OutputInstance'), $this->ReadPropertyInteger('MediaPlayerVolume'));
                 //Fading takes 500ms
                 IPS_Sleep(500);
-                WAC_PlayFile($this->ReadPropertyInteger('OutputInstance'), 'http://127.0.0.1:3777/hook/durchsage-sonos/');
+                WAC_PlayFile($this->ReadPropertyInteger('OutputInstance'), 'http://127.0.0.1:3777/hook/durchsage/' . $this->InstanceID);
             break;
         }
     }
