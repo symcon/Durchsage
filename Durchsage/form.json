@@ -17,6 +17,9 @@
         },
         {
             "code": 203, "caption": "Selected Output Instance doesn't correspond with the selected Output Type", "icon": "error"
+        },
+        {
+            "code": 204, "caption": "The Output Format of AWS Polly needs to be mp3", "icon": "error"
         }
     ]
 }

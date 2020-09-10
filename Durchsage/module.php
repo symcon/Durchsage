@@ -62,10 +62,9 @@ class Durchsage extends WebHookModule
     {
         $this->setInstanceStatus();
         if ($this->GetStatus() != 102) {
-            return;
-        }
-        if (IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'OutputFormat') != 'mp3') {
-            echo $this->Translate('Only mp3 is supported');
+            if ($this->GetStatus() == 204) {
+                echo $this->Translate('The Output Format of AWS Polly needs to be mp3');
+            }
             return;
         }
 
@@ -86,9 +85,9 @@ class Durchsage extends WebHookModule
             break;
         }
     }
+
     public function UpdateOutput($OutputType)
     {
-        //Disabling elements temporarily in order to prevent errors
         switch ($OutputType) {
             case self::DS_SONOS:
                 //Hide Media Player elements
@@ -240,6 +239,9 @@ class Durchsage extends WebHookModule
             }
         } else {
             $newStatus = 104;
+        }
+        if (IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'OutputFormat') != 'mp3') {
+            $newStatus = 204;
         }
         $this->SetStatus($newStatus);
     }
