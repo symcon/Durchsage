@@ -1,5 +1,5 @@
 # Durchsage
-Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten über Sonos oder unter Windows den Media Player widerzugeben.
+Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten über Sonos oder unter Windows den Media Player wiedergeben.
 
 ### Inhaltsverzeichnis
 
@@ -16,7 +16,6 @@ Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten �
 * Von AWS Polly erzeugte Audiodaten über ein Sonos Player oder den "Symcon" Media Player wiederzugeben
 * Lautstärke der Durchsage ist einstellbar
 * Durchsage bei Änderung der Text Variable. Alternativ über angebotene Funktion
-* Unterstütztes Ausgabeformat: mp3
 
 ### 2. Vorraussetzungen
 
@@ -25,7 +24,7 @@ Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten �
 ### 3. Software-Installation
 
 * Über den Module Store das 'Durchsage'-Modul installieren.
-* Alternativ über das Module Control folgende URL hinzufügen.
+* Alternativ über das Module Control folgende URL hinzufügen: `https://github.com/symcon/Durchsage`
 
 ### 4. Einrichten der Instanzen in IP-Symcon
 
@@ -36,7 +35,7 @@ __Konfigurationsseite__:
 
 Name                    | Beschreibung
 ----------------------- | ------------------
-Text-to-Speeach Instanz | AWS Polly Instanz, welche zum erstellen der Durchsage genutzt werden soll. Es wird nur der Ausgabetyp mp3 unterstützt
+Text-to-Speeach Instanz | AWS Polly Instanz, welche zum erstellen der Durchsage genutzt werden soll. Als Ausgabeformat muss mp3 ausgewählt sein.
 Ausgabegerät            | Typ der Ausgabeinstanz
 Sonos IP                | IP des Gerätes, auf dem IP-Symcon läuft
 Sonos/Media Player      | Instanz, über welche die Durchsage widergegeben wird
@@ -51,7 +50,7 @@ Die Statusvariablen/Kategorien werden automatisch angelegt. Das Löschen einzeln
 
 Name     | Typ     | Beschreibung
 -------- | ------- | ------------
-Text     | String  | Text welcher für die Durchsage genutzt wird
+Text     | String  | Text welcher für die Durchsage genutzt wird. Bei Aktualisierung der Variable wird der Inhalt wiedergegeben.
 
 #### Profile
 
