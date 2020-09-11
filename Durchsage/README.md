@@ -35,7 +35,7 @@ __Konfigurationsseite__:
 
 Name                    | Beschreibung
 ----------------------- | ------------------
-Text-to-Speeach Instanz | AWS Polly Instanz, welche zum erstellen der Durchsage genutzt werden soll. Als Ausgabeformat muss mp3 ausgewählt sein. <br>Unterstützte Abtastraten: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz
+Text-to-Speeach Instanz | AWS Polly Instanz, welche zum erstellen der Durchsage genutzt werden soll. Als Ausgabeformat muss mp3 ausgewählt sein. <br>Sonos kann nur mit den Abtastraten 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz genutzt werden
 Ausgabegerät            | Typ der Ausgabeinstanz
 Symcon IP               | Die IP-Addresse, unter welcher der Sonos Player IP-Symcon erreicht.
 Sonos/Media Player      | Instanz, über welche die Durchsage widergegeben wird
