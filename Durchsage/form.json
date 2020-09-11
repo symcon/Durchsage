@@ -7,6 +7,9 @@
     ],
     "status": [
         {
+            "code": 104, "caption": "Instance is inactive", "icon": "inactive"
+        },
+        {
             "code": 200, "caption": "Selected Text-to-Speech Instance doen't exist", "icon": "error"
         },
         {

@@ -17,6 +17,7 @@
             "Unknown ident in RequestAction": "Unbekannter Ident in RequestAction",
             "Unknown output type": "Unbekannter Ausgabetyp",
             "Sonos Module not installed": "Sonos Modul nicht installiert",
+            "Instance is inactive": "Instanz ist inaktiv",
             "Selected Output Instance doesn't correspond with the selected Output Type": "Ausgewählte Ausgabeinstanz stimmt nicht mit dem ausgewählten Ausgabetyp überein",
             "The Output Format of AWS Polly needs to be mp3": "Das Ausgabeformat von AWS Polly muss mp3 sein",
             "The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz": "Die ausgewählte Abtastrate von AWS Polly ist nicht unterstützt. Wählen sie eine der Folgenden: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz"

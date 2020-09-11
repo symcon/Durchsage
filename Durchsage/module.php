@@ -63,19 +63,13 @@ class Durchsage extends WebHookModule
     public function Play(string $Text)
     {
         $this->setInstanceStatus();
-        $status = $this->GetStatus();
-        if ($status != 102) {
-            switch ($status) {
-                case 204:
-                    echo $this->Translate('The Output Format of AWS Polly needs to be mp3');
-                    break;
-
-                case 205:
-                    echo $this->Translate('The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 , 22050, 24000, 32000, 44100, 48000');
-                    break;
-
-                default:
+        $currentStatus = $this->GetStatus();
+        if ($currentStatus != 102) {
+            foreach (json_decode($this->GetConfigurationForm(), true)['status'] as $status) {
+                if ($status['code'] == $currentStatus) {
+                    echo $this->Translate($status['caption']);
                     return;
+                }
             }
         }
 
