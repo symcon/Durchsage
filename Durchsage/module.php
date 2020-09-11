@@ -8,6 +8,8 @@ class Durchsage extends WebHookModule
 {
     const DS_SONOS = 0;
     const DS_MEDIA = 1;
+    //Sonos only supports following sample rates: https://support.sonos.com/s/article/79?language=de
+    const DS_SONOS_SAMPLE_RATE = ['', '16000', '22050', '24000', '32000', '44100', '48000'];
     public function __construct($InstanceID)
     {
         parent::__construct($InstanceID, 'durchsage/' . $InstanceID);
@@ -230,9 +232,7 @@ class Durchsage extends WebHookModule
                 return 204;
             }
             if ($this->ReadPropertyInteger('OutputType') === self::DS_SONOS) {
-                //Sonos only supports following sample rates: https://support.sonos.com/s/article/79?language=de
-                $sampleRateAllowList = ['', '16000', '22050', '24000', '32000', '44100', '48000'];
-                if (!in_array(IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'SampleRate'), $sampleRateAllowList)) {
+                if (!in_array(IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'SampleRate'), self::DS_SONOS_SAMPLE_RATE)) {
                     return 205;
                 }
             }
