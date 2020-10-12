@@ -100,7 +100,6 @@ class Durchsage extends WebHookModule
 
                 //Update output select
                 $this->UpdateFormField('OutputInstance', 'caption', $this->Translate('Sonos Player'));
-                $this->UpdateFormField('OutputInstance', 'options', json_encode($this->getInstanceOptions('{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')));
                 $this->UpdateFormField('OutputInstance', 'value', 0);
 
                 //Show Sonos
@@ -115,7 +114,6 @@ class Durchsage extends WebHookModule
 
                 //Update output select
                 $this->UpdateFormField('OutputInstance', 'caption', $this->Translate('Media Player'));
-                $this->UpdateFormField('OutputInstance', 'options', json_encode($this->getInstanceOptions('{2999EBBB-5D36-407E-A52B-E9142A45F19C}')));
                 $this->UpdateFormField('OutputInstance', 'value', 0);
 
                 //Show Media Player
@@ -132,10 +130,10 @@ class Durchsage extends WebHookModule
         $form = json_decode(file_get_contents(__DIR__ . '/form.json'), true);
 
         $form['elements'][0] = [
-            'type'    => 'Select',
-            'name'    => 'PollyID',
-            'caption' => 'Text-to-Speech Instance (Polly)',
-            'options' => $this->getInstanceOptions('{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}')
+            'type'     => 'SelectModule',
+            'name'     => 'PollyID',
+            'caption'  => 'Text-to-Speech Instance (Polly)',
+            'moduleID' => '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}'
         ];
 
         $outputOptions[] = [
@@ -175,10 +173,10 @@ class Durchsage extends WebHookModule
         ];
 
         $form['elements'][3] = [
-            'type'    => 'Select',
-            'name'    => 'OutputInstance',
-            'caption' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? 'Media Player' : 'Sonos Player',
-            'options' => $this->getInstanceOptions($this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}')
+            'type'     => 'SelectModule',
+            'name'     => 'OutputInstance',
+            'caption'  => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? 'Media Player' : 'Sonos Player',
+            'moduleID' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}'
         ];
         $form['elements'][4] = [
             'type'     => 'ValidationTextBox',
@@ -255,25 +253,5 @@ class Durchsage extends WebHookModule
         };
 
         $this->SetStatus($getInstanceStatus());
-    }
-
-    private function getInstanceOptions($guid)
-    {
-        $instances = IPS_GetInstanceListByModuleID($guid);
-        $caption = $this->Translate('None');
-        if ($guid == '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}' && !(IPS_LibraryExists('{B9D841BF-12F4-4BC6-B89C-0F6CB538865B}'))) {
-            $caption = $this->Translate('Sonos Module not installed');
-        }
-        $options[] = [
-            'value'   => 0,
-            'caption' => $caption
-        ];
-        foreach ($instances as $instance) {
-            $options[] = [
-                'value'   => $instance,
-                'caption' => IPS_GetName($instance)
-            ];
-        }
-        return $options;
     }
 }
