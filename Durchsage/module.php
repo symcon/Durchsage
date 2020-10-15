@@ -10,6 +10,10 @@ class Durchsage extends WebHookModule
     const DS_MEDIA = 1;
     //Sonos only supports following sample rates: https://support.sonos.com/s/article/79?language=de
     const DS_SONOS_SAMPLE_RATE = ['', '16000', '22050', '24000', '32000', '44100', '48000'];
+
+    const GUID_SONOS = '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}';
+    const GUID_MEDIA = '{2999EBBB-5D36-407E-A52B-E9142A45F19C}';
+    const GUID_POLLY = '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}';
     public function __construct($InstanceID)
     {
         parent::__construct($InstanceID, 'durchsage/' . $InstanceID);
@@ -100,6 +104,7 @@ class Durchsage extends WebHookModule
 
                 //Update output select
                 $this->UpdateFormField('OutputInstance', 'caption', $this->Translate('Sonos Player'));
+                $this->UpdateFormField('OutputInstance', 'moduleID', self::GUID_SONOS);
                 $this->UpdateFormField('OutputInstance', 'value', 0);
 
                 //Show Sonos
@@ -114,6 +119,7 @@ class Durchsage extends WebHookModule
 
                 //Update output select
                 $this->UpdateFormField('OutputInstance', 'caption', $this->Translate('Media Player'));
+                $this->UpdateFormField('OutputInstance', 'moduleID', self::GUID_MEDIA);
                 $this->UpdateFormField('OutputInstance', 'value', 0);
 
                 //Show Media Player
@@ -133,7 +139,7 @@ class Durchsage extends WebHookModule
             'type'     => 'SelectModule',
             'name'     => 'PollyID',
             'caption'  => 'Text-to-Speech Instance (Polly)',
-            'moduleID' => '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}'
+            'moduleID' => self::GUID_POLLY
         ];
 
         $outputOptions[] = [
@@ -176,7 +182,7 @@ class Durchsage extends WebHookModule
             'type'     => 'SelectModule',
             'name'     => 'OutputInstance',
             'caption'  => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? 'Media Player' : 'Sonos Player',
-            'moduleID' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? '{2999EBBB-5D36-407E-A52B-E9142A45F19C}' : '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}'
+            'moduleID' => $this->ReadPropertyInteger('OutputType') === self::DS_MEDIA ? self::GUID_MEDIA : self::GUID_SONOS
         ];
         $form['elements'][4] = [
             'type'     => 'ValidationTextBox',
@@ -217,7 +223,7 @@ class Durchsage extends WebHookModule
             if (!IPS_InstanceExists($polly)) {
                 return 200;
             }
-            if (IPS_GetInstance($polly)['ModuleInfo']['ModuleID'] != '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}') {
+            if (IPS_GetInstance($polly)['ModuleInfo']['ModuleID'] != self::GUID_POLLY) {
                 return 201;
             }
             if (IPS_GetProperty($this->ReadPropertyInteger('PollyID'), 'OutputFormat') != 'mp3') {
@@ -237,13 +243,13 @@ class Durchsage extends WebHookModule
             }
             switch ($this->ReadPropertyInteger('OutputType')) {
                 case self::DS_SONOS:
-                    if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}') {
+                    if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != self::GUID_SONOS) {
                         return 203;
                     }
                     break;
 
                 case self::DS_MEDIA:
-                    if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != '{2999EBBB-5D36-407E-A52B-E9142A45F19C}') {
+                    if (IPS_GetInstance($output)['ModuleInfo']['ModuleID'] != self::GUID_MEDIA) {
                         return 203;
                     }
                     break;
