@@ -217,8 +217,7 @@ class Durchsage extends WebHookModule
 
     private function setInstanceStatus()
     {
-        $getInstanceStatus = function ()
-        {
+        $getInstanceStatus = function () {
             $polly = $this->ReadPropertyInteger('PollyID');
             if ($polly === 0) {
                 return 104;
