@@ -31,7 +31,7 @@ class Durchsage extends WebHookModule
         $this->RegisterPropertyInteger('PollyID', 0);
         $this->RegisterPropertyInteger('OutputType', self::DS_SONOS);
         $this->RegisterPropertyInteger('OutputInstance', 0);
-        $this->RegisterPropertyString('SymconIP', (sizeof($networks) > 0) ? $networks[0]['IP'] : '');
+        $this->RegisterPropertyString('SymconIP', (count($networks) > 0) ? $networks[0]['IP'] : '');
         $this->RegisterPropertyString('SonosVolume', '0');
         $this->RegisterPropertyInteger('MediaPlayerVolume', 50);
 
@@ -217,7 +217,8 @@ class Durchsage extends WebHookModule
 
     private function setInstanceStatus()
     {
-        $getInstanceStatus = function () {
+        $getInstanceStatus = function ()
+        {
             $polly = $this->ReadPropertyInteger('PollyID');
             if ($polly === 0) {
                 return 104;
