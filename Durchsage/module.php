@@ -20,11 +20,14 @@ class Durchsage extends WebHookModule
         //Never delete this line!
         parent::Create();
 
+        //Get details for available networks
+        $networks = Sys_GetNetworkInfo();
+
         //Properties
         $this->RegisterPropertyInteger('PollyID', 0);
         $this->RegisterPropertyInteger('OutputType', self::DS_SONOS);
         $this->RegisterPropertyInteger('OutputInstance', 0);
-        $this->RegisterPropertyString('SymconIP', Sys_GetNetworkInfo()[0]['IP']);
+        $this->RegisterPropertyString('SymconIP', sizeof($networks) > 0 ? $networks[0]['IP'] : "");
         $this->RegisterPropertyString('SonosVolume', '0');
         $this->RegisterPropertyInteger('MediaPlayerVolume', 50);
 
