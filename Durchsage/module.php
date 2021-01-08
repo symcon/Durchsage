@@ -98,7 +98,7 @@ class Durchsage extends WebHookModule
         }
     }
 
-    public function UpdateOutput($OutputType)
+    public function UpdateOutput(int $OutputType)
     {
         switch ($OutputType) {
             case self::DS_SONOS:
