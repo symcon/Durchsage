@@ -17,7 +17,7 @@ Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audio Daten �
 * Lautstärke der Durchsage ist einstellbar
 * Durchsage bei Änderung der Text Variable. Alternativ über angebotene Funktion
 
-### 2. Vorraussetzungen
+### 2. Voraussetzungen
 
 - IP-Symcon ab Version 5.4
 
