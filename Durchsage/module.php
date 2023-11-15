@@ -6,14 +6,14 @@ include_once __DIR__ . '/libs/WebHookModule.php';
 
 class Durchsage extends WebHookModule
 {
-    const DS_SONOS = 0;
-    const DS_MEDIA = 1;
+    public const DS_SONOS = 0;
+    public const DS_MEDIA = 1;
     //Sonos only supports following sample rates: https://support.sonos.com/s/article/79?language=de
-    const DS_SONOS_SAMPLE_RATE = ['', '16000', '22050', '24000', '32000', '44100', '48000'];
+    public const DS_SONOS_SAMPLE_RATE = ['', '16000', '22050', '24000', '32000', '44100', '48000'];
 
-    const GUID_SONOS = '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}';
-    const GUID_MEDIA = '{2999EBBB-5D36-407E-A52B-E9142A45F19C}';
-    const GUID_POLLY = '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}';
+    public const GUID_SONOS = '{52F6586D-A1C7-AAC6-309B-E12A70F6EEF6}';
+    public const GUID_MEDIA = '{2999EBBB-5D36-407E-A52B-E9142A45F19C}';
+    public const GUID_POLLY = '{6EFA02E1-360F-4120-B3DE-31EFCDAF0BAF}';
     public function __construct($InstanceID)
     {
         parent::__construct($InstanceID, 'durchsage/' . $InstanceID);
@@ -64,7 +64,7 @@ class Durchsage extends WebHookModule
 
             default:
                 $this->LogMessage(KL_WARNING, $this->Translate('Unknown ident in RequestAction'));
-            }
+        }
     }
 
     public function Play(string $Text)

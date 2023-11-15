@@ -7,25 +7,39 @@
     ],
     "status": [
         {
-            "code": 104, "caption": "Instance is inactive", "icon": "inactive"
+            "code": 104,
+            "caption": "Instance is inactive",
+            "icon": "inactive"
         },
         {
-            "code": 200, "caption": "Selected Text-to-Speech Instance doen't exist", "icon": "error"
+            "code": 200,
+            "caption": "Selected Text-to-Speech Instance doen't exist",
+            "icon": "error"
         },
         {
-            "code": 201, "caption": "Selected Text-to-Speech Instance is no AwS Polly Instance", "icon": "error"
+            "code": 201,
+            "caption": "Selected Text-to-Speech Instance is no AwS Polly Instance",
+            "icon": "error"
         },
         {
-            "code": 202, "caption": "Selected Output Instance doesn't exist", "icon": "error"
+            "code": 202,
+            "caption": "Selected Output Instance doesn't exist",
+            "icon": "error"
         },
         {
-            "code": 203, "caption": "Selected Output Instance doesn't correspond with the selected Output Type", "icon": "error"
+            "code": 203,
+            "caption": "Selected Output Instance doesn't correspond with the selected Output Type",
+            "icon": "error"
         },
         {
-            "code": 204, "caption": "The Output Format of AWS Polly needs to be mp3", "icon": "error"
+            "code": 204,
+            "caption": "The Output Format of AWS Polly needs to be mp3",
+            "icon": "error"
         },
         {
-            "code": 205, "caption": "The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz", "icon": "error"
+            "code": 205,
+            "caption": "The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz",
+            "icon": "error"
         }
     ]
 }
