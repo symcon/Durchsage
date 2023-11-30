@@ -11,8 +11,8 @@ class DurchsageValidationTest extends TestCaseSymconValidation
         $this->validateLibrary(__DIR__ . '/..');
     }
 
-    public function testValidateDurchsageModule(): void
+    public function testValidateAnnouncementModule(): void
     {
-        $this->validateModule(__DIR__ . '/../Durchsage');
+        $this->validateModule(__DIR__ . '/../Announcement');
     }
 }

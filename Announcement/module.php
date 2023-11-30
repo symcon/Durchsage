@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 include_once __DIR__ . '/libs/WebHookModule.php';
 
-class Durchsage extends WebHookModule
+class Announcement extends WebHookModule
 {
     public const DS_SONOS = 0;
     public const DS_MEDIA = 1;
