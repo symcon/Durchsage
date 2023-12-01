@@ -1,6 +1,6 @@
 {
     "id": "{26F752F0-4D4E-A52C-DB3C-35DFEA979F44}",
-    "name": "Durchsage",
+    "name": "Announcement",
     "type": 3,
     "vendor": "",
     "aliases": [],
@@ -8,5 +8,5 @@
     "childRequirements": [],
     "implemented": [],
     "prefix": "DS",
-    "url": "https://github.com/symcon/Durchsage/tree/master/Durchsage"
+    "url": "https://www.symcon.de/en/service/documentation/module-reference/announcement/"
 }
