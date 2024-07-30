@@ -38,7 +38,7 @@
         },
         {
             "code": 205,
-            "caption": "The selected Sample Rate of AWS Polly is not supportet. Choose one of the following: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz",
+            "caption": "The selected Sample Rate of AWS Polly is not supported. Choose one of the following: 16000 Hz, 22050 Hz, 24000 Hz, 32000 Hz, 44100 Hz, 48000 Hz",
             "icon": "error"
         }
     ]
