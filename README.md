@@ -6,5 +6,5 @@
 
 Folgende Module beinhaltet das Durchsage Repository:
 
-- __Durchsage__ ([Dokumentation](https://www.symcon.de/de/service/dokumentation/modulreferenz/durchsage))  
+- __Durchsage__ ([Dokumentation](https://www.symcon.de/de/service/dokumentation/modulreferenz/durchsage/))  
 	Das Durchsage Modul bietet die Möglichkeit von AWS Polly erzeugte Audiodaten über Sonos oder den Media Player wiederzugeben.
